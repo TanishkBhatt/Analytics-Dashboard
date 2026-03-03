@@ -13,8 +13,10 @@ st.title("ICC Men's T20 World Cup 2022 Matches | DashBoard")
 st.divider()
 # -------------------------KPI METRICS ---------------------------
 
-if "most_run_scorer" and "most_wicket_taker" not in st.session_state:
+if "most_run_scorer" not in st.session_state:
     st.session_state.most_run_scorer = {}
+
+if "most_wicket_taker" not in st.session_state:
     st.session_state.most_wicket_taker = {}
 
 kpi = {"HOST": ["AUSTRALIA", "+ FIRST TIME"],
@@ -33,11 +35,13 @@ with col3:
     st.metric("RUNNER UP", kpi["RUNNER UP"][0], delta=kpi["RUNNER UP"][1])
 
 with col1:
-    key1, val1 = list(st.session_state.most_run_scorer.items())[0]
-    st.metric("MOST RUNS", key1, delta=f"+ {val1} RUNS")
+    if st.session_state.most_run_scorer:
+        key1, val1 = list(st.session_state.most_run_scorer.items())[0]
+        st.metric("MOST RUNS", key1, delta=f"+ {val1} RUNS")
 with col2:
-    key2, val2 = list(st.session_state.most_wicket_taker.items())[0]
-    st.metric("MOST WICKETS", key2, delta=f"+ {val2} WICKETS")
+    if st.session_state.most_wicket_taker:
+        key2, val2 = list(st.session_state.most_wicket_taker.items())[0]
+        st.metric("MOST WICKETS", key2, delta=f"+ {val2} WICKETS")
 with col3:
     key3, val3 = list(pott.items())[0]
     st.metric("PLAYER OF THE TOURNAMENT", key3, delta=f"+ {val3}")
@@ -100,7 +104,6 @@ runs_df = pd.DataFrame({"PLAYERS": list(highest_runs.keys()),
 
 max_idx1 = runs_df["RUNS"].idxmax()
 st.session_state.most_run_scorer = {runs_df.loc[max_idx1, "PLAYERS"]: runs_df.loc[max_idx1, "RUNS"]}
-st.rerun()
 
 st.bar_chart(runs_df.set_index("PLAYERS"))
 st.divider()
@@ -117,9 +120,8 @@ highest_wickets = dict(sorted(highest_wickets.items(), key=lambda x:x[1], revers
 wickets_df = pd.DataFrame({"PLAYERS": list(highest_wickets.keys()),
                     "WICKETS": list(highest_wickets.values())})
 
-max_idx2 = runs_df["WICKETS"].idxmax()
-st.session_state.most_run_scorer = {wickets_df.loc[max_idx2, "PLAYERS"]: wickets_df.loc[max_idx2, "WICKETS"]}
-st.rerun()
+max_idx2 = wickets_df["WICKETS"].idxmax()
+st.session_state.most_wicket_taker = {wickets_df.loc[max_idx2, "PLAYERS"]: wickets_df.loc[max_idx2, "WICKETS"]}
 
 st.bar_chart(wickets_df.set_index("PLAYERS"))
 st.divider()
