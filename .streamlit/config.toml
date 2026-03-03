@@ -1,0 +1,10 @@
+[theme]
+base = "dark"
+backgroundColor = "#1a2437"
+primaryColor = "#0000ff"
+font = "sans serif"
+textColor = "#ffffff"
+
+[server]
+port = 8501
+runOnSave = true
