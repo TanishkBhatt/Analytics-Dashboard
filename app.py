@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # ----------------------------------------------------
-data = pd.read_csv("datasets/match_records.csv")
+data = pd.read_csv("dataset/match_records.csv")
 st.set_page_config(
     page_title='Analytics Dashboard'
 )
