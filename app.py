@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-# ----------------------------------------------------
+# --------------------BASIC CONFIGURATION------------------------
 match_records = pd.read_csv("dataset/match_records.csv")
 batting_records = pd.read_csv("dataset/batting_records.csv")
 bowling_records = pd.read_csv("dataset/bowling_records.csv")
@@ -11,28 +11,39 @@ st.set_page_config(
 )
 st.title("ICC Men's T20 World Cup 2022 Matches | DashBoard")
 st.divider()
-# ----------------------------------------------------
+# -------------------------KPI METRICS ---------------------------
 
 if "most_run_scorer" and "most_wicket_taker" not in st.session_state:
-    st.session_state.most_run_scorer = None
-    st.session_state.most_wicket_taker = None
+    st.session_state.most_run_scorer = {}
+    st.session_state.most_wicket_taker = {}
+
+kpi = {"HOST": ["AUSTRALIA", "+ FIRST TIME"],
+    "WINNER": ["ENGLAND", "+ SECOND TITLE"],
+    "RUNNER UP": ["PAKISTAN", "- SECOND TIME"]}
+
+pott = {"PLAYER": "SAM CURRAN",
+        "CONTRIBUTION": "13 WICKETS"}
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    st.metric("HOST", "AUSTRALIA", delta="+ FIRST TIME")
+    st.metric("HOST", kpi["HOST"][0], delta=kpi["HOST"][1])
 with col2:
-    st.metric("WINNER", "ENGLAND", delta="+ SECOND TITLE")
+    st.metric("WINNER", kpi["WINNER"][0], delta=kpi["WINNER"][1])
 with col3:
-    st.metric("RUNNER UP", "PAKISTAN", delta="- SECOND TIME")
-with col1:
-    st.metric("MOST RUNS", most_run_scorer, delta="+ RUNS")
-with col2:
-    st.metric("MOST WICKETS", most_wicket_taker, delta="+ WICKETS")
-with col3:
-    st.metric("PLAYER OF THE TOURNAMENT", "SAM CURRAN", delta="+ 13 WICKETS")
-st.divider()
+    st.metric("RUNNER UP", kpi["RUNNER UP"][0], delta=kpi["RUNNER UP"][1])
 
-# ----------------------------------------------------
+with col1:
+    key1, val1 = list(st.session_state.most_run_scorer.items())[0]
+    st.metric("MOST RUNS", key1, delta=f"+ {val1} RUNS")
+with col2:
+    key2, val2 = list(st.session_state.most_wicket_taker.items())[0]
+    st.metric("MOST WICKETS", key2, delta=f"+ {val2} WICKETS")
+with col3:
+    key3, val3 = list(pott.items())[0]
+    st.metric("PLAYER OF THE TOURNAMENT", key3, delta=f"+ {val3}")
+
+st.divider()
+# ---------------------DATAFRAME PRESENTATION------------------------
 
 st.subheader("DataFrame Presentation")
 with st.expander("VIEW MATCH RECORDS".title()):
@@ -41,8 +52,9 @@ with st.expander("VIEW BATTING RECORDS".title()):
     st.dataframe(batting_records)
 with st.expander("VIEW BOWLING RECORDS".title()):
     st.dataframe(bowling_records)
+
 st.divider()
-# ----------------------------------------------------
+# ---------------------------MOST WINS-------------------------------
 
 st.subheader("Most Number Of Wins By A Team")
 wins = {}
@@ -58,7 +70,7 @@ wins_df = pd.DataFrame({'TEAM': list(wins.keys()),
 
 st.bar_chart(wins_df.set_index("TEAM"))
 st.divider()
-# ----------------------------------------------------
+# ------------------------MOST POTM AWARDS----------------------------
 
 st.subheader("Most Player Of The Match Awards")
 potms = {}
@@ -73,7 +85,7 @@ potms_df = potms_df.dropna()
 
 st.bar_chart(potms_df.set_index("PLAYER"))
 st.divider()
-# ----------------------------------------------------
+# -------------------------HIGHEST RUN SCORER---------------------------
 
 st.subheader("Highest Run Scorers")
 highest_runs = {}
@@ -86,12 +98,13 @@ highest_runs = dict(sorted(highest_runs.items(), key=lambda x:x[1], reverse=True
 runs_df = pd.DataFrame({"PLAYERS": list(highest_runs.keys()),
                     "RUNS": list(highest_runs.values())})
 
-st.session_state.most_run_scorer = runs_df.loc[runs_df["RUNS"].idxmax(), "PLAYERS"]
+max_idx1 = runs_df["RUNS"].idxmax()
+st.session_state.most_run_scorer = {runs_df.loc[max_idx1, "PLAYERS"]: runs_df.loc[max_idx1, "RUNS"]}
 st.rerun()
 
 st.bar_chart(runs_df.set_index("PLAYERS"))
 st.divider()
-# ----------------------------------------------------
+# ------------------------HIGHEST WICKET TAKER----------------------------
 
 st.subheader("Highest Wicket Taker")
 highest_wickets = {}
@@ -104,12 +117,13 @@ highest_wickets = dict(sorted(highest_wickets.items(), key=lambda x:x[1], revers
 wickets_df = pd.DataFrame({"PLAYERS": list(highest_wickets.keys()),
                     "WICKETS": list(highest_wickets.values())})
 
-st.session_state.most_wicket_taker = wickets_df.loc[wickets_df["WICKETS"].idxmax(), "PLAYERS"]
+max_idx2 = runs_df["WICKETS"].idxmax()
+st.session_state.most_run_scorer = {wickets_df.loc[max_idx2, "PLAYERS"]: wickets_df.loc[max_idx2, "WICKETS"]}
 st.rerun()
 
 st.bar_chart(wickets_df.set_index("PLAYERS"))
 st.divider()
-# -----------------------------------------------------
+# ------------------------------------------------------------------------
 
 st.caption("MADE BY TANISHK - A STUDENT AND A PROGRAMMER")
-# -----------------------------------------------------
+# ------------------------------------------------------------------------
