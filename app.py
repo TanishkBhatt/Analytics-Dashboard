@@ -91,7 +91,7 @@ with col1:
 with col2:
     st.metric("MOST WICKETS", high_wicket_taker[0][0], delta=f"+ {high_wicket_taker[0][1]} WICKETS")
 with col3:
-    st.metric("PLAYER OF THE TOURNAMENT", kpi_data["POTM"][0], delta=kpi_data["POTM"][1])
+    st.metric("PLAYER OF THE TOURNAMENT", kpi_data["POTT"][0], delta=kpi_data["POTT"][1])
 
 st.divider()
 
