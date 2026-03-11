@@ -1,6 +1,8 @@
 {
-    "HOST": ["Australia", "+ FIRST TIME"],
-    "WINNER": ["England", "+ SECOND TITLE"],
-    "RUNNER UP": ["Pakistan", "- SECOND TIME"],
-    "POTT": ["Sam Curran", "+ 13 WICKETS"]
+    "HOST": ["Australia", "FIRST TIME"],
+    "WINNER": ["England", "SECOND TITLE"],
+    "RUNNER UP": ["Pakistan", "-SECOND TIME"],
+    "MOST RUNS": ["V.Kohli", "296 RUNS"],
+    "MOST WICKETS": ["W.Hasranga", "15 WICKETS"],
+    "POTT": ["S.Curran", "13 WICKETS"]
 }

@@ -1,6 +1,8 @@
 {
-    "HOST": ["USA and WI", "+ FIRST TIME"],
-    "WINNER": ["India", "+ SECOND TITLE"],
-    "RUNNER UP": ["South Africa", "- FIRST TIME"],
-    "POTT": ["Jasprit Bumrah", "+ 15 WICKETS"]
+    "HOST": ["USA and WI", "FIRST TIME"],
+    "WINNER": ["India", "SECOND TITLE"],
+    "RUNNER UP": ["South Africa", "-FIRST TIME"],
+    "MOST RUNS": ["R.Gurbaaz", "281 RUNS"],
+    "MOST WICKETS": ["F.Farruki", "17 WICKETS"],
+    "POTT": ["J.Bumrah", "15 WICKETS"]
 }
