@@ -7,5 +7,5 @@ font = "sans serif"
 textColor = "#ffffff"
 
 [server]
-port = 5000
+port = 8501
 runOnSave = true
