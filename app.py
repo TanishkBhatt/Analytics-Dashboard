@@ -59,21 +59,19 @@ st.divider()
 st.subheader("DataFrame Presentation")
 with st.expander("View Match Records"):
     st.dataframe(match_records)
+with st.expander("View Batting Records"):
+    pass
+with st.expander("View Bowling Records"):
+    pass
 st.divider()
 
 st.subheader("Most Number Of Wins By A Team")
 most_wins = most_wins_data(match_records)
-with st.expander("View DataFrame"):
-    st.dataframe(most_wins)
-st.write("")
 st.bar_chart(most_wins.set_index("TEAM"))
 st.divider()
 
 st.subheader("Most Player Of The Match Awards")
 most_potm = most_potm_data(match_records)
-with st.expander("View DataFrame"):
-    st.dataframe(most_potm)
-st.write("")
 st.bar_chart(most_potm.set_index("PLAYER"))
 st.divider()
 
